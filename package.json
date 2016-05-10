@@ -1,0 +1,24 @@
+{
+  "//": "To understand the schema for this file visit http://browsenpm.org/package.json",
+  "name": "react-redux-starter",
+  "version": "0.0.1",
+  "description": "React-Redux Starter",
+  "scripts": {
+    "start": "node server.js",
+    "bundle": "cross-env NODE_ENV=production webpack -p --optimize-dedupe"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "react": "^15.0.2",
+    "react-dom": "^15.0.2"
+  },
+  "devDependencies": {
+    "express": "^4.13.4",
+    "html-webpack-plugin": "^2.16.1",
+    "request": "^2.72.0",
+    "url-loader": "^0.5.7",
+    "webpack": "^1.13.0",
+    "webpack-dev-middleware": "^1.6.1",
+    "webpack-hot-middleware": "^2.10.0"
+  }
+}
