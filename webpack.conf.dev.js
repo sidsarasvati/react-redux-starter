@@ -1,50 +1,48 @@
 var path = require('path');
 var webpack = require('webpack');
+var HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
-  devtool: 'inline-source-map',
+  devtool: 'source-map',
   entry: [
-    'eventsource-polyfill',                       // necessary for hot reloading with IE
     'webpack-hot-middleware/client',
-    './src/index.js'
+    'babel-polyfill',
+    './src/index'
   ],
   output: {
     path: path.join(__dirname, 'dist'),           // output path
     filename: 'bundle.js',                        // compiled single js
-    publicPath: 'http://localhost:3001/'
+    publicPath: '/dist/'
   },
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NoErrorsPlugin(),
-    new webpack.DefinePlugin({
-      "process.env": {
-        NODE_ENV: JSON.stringify('development')
-      }
-    }),
-    new HtmlWebpackPlugin({
-      title: 'Reading List - Development',
-      template: path.join(__dirname, 'assets/index-template.html')
-    })
   ],
   resolve: {
     extensions: ['', '.js', '.jsx', '.json'],
     root: path.join(__dirname, 'src')
   },
   module: {
-    loaders: [
-      {
-        test: /(\.js|\.jsx)$/,
-        loaders: ['babel'],                         // see .babelrc for babel plugins
-        include: path.join(__dirname, 'src')
-      },
-      {
-        test: /\.json/,
-        loaders: ['json-loader']
-      },
-      {
-        test: /\.jpe?g$|\.gif$|\.png$/i,
-        loader: "url-loader?limit=10000"
-      }
-    ]
-  },
+    loaders: [{
+      test: /(\.js|\.jsx)$/,
+      loader: 'babel-loader',                // see .babelrc for babel config
+      include: path.join(__dirname, 'src')
+    }, {
+      test: /\.svg$/,
+      loader: "url?limit=10000&mimetype=image/svg+xml",
+      include: path.join(__dirname, "assets")
+    }, {
+      test: /\.png$/,
+      loader: "url-loader?mimetype=image/png",
+      include: path.join(__dirname, "assets")
+    }, {
+      test: /\.gif$/,
+      loader: "url-loader?mimetype=image/gif",
+      include: path.join(__dirname, "assets")
+    }, {
+      test: /\.jpg$/,
+      loader: "url-loader?mimetype=image/jpg",
+      include: path.join(__dirname, "assets")
+    }]
+  }
 };
